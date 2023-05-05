@@ -1,15 +1,17 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
+import { Routes, Route } from 'react-router-dom';
 import Login from './components/Login/Login';
 import Chat from './components/Chat/Chat';
-import { CHAT_ROUTE, LOGIN_ROUTE } from './utils/constant';
+import Navbar from './components/Navbar/Navbar';
 function App() {
-  const user = true;
+  const user = false;
   return (
-    <Routes>
-      <Route path={LOGIN_ROUTE} element={user ? <Login /> : <Chat />} />
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path={'/'} element={user ? <Chat /> : <Login />} />
+      </Routes>
+    </>
   );
 }
 
