@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -15,11 +15,27 @@ import { getFirestore } from "firebase/firestore";
   appId: "1:158486525621:web:43404dd89c506ce303f0fc",
   measurementId: "G-DV0H9D80NL"
  })
- const auth = getAuth(conf);
- const db = getFirestore(conf);
+
+interface authConfig{
+  initializeApp:() => void,
+  auth:any,
+  db:any,
+}
+const auth = getAuth(conf);
+const db = getFirestore(conf);
+export const authContext= createContext<Partial<authConfig>>({})
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <BrowserRouter>
-    <App />
+  <authContext.Provider value={{
+    initializeApp:initializeApp,
+    auth:auth,
+    db:db,
+  }
+    
+  }>
+     <App />
+  </authContext.Provider>
+   
   </BrowserRouter>
 );
