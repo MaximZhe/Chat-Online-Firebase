@@ -4,9 +4,10 @@ import { NavLink } from 'react-router-dom';
 import { LOGIN_ROUTE } from '../../utils/constant';
 import { authContext } from '../..';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { signOut } from 'firebase/auth';
 const Navbar = () => {
-  const {auth} = useContext(authContext)
-  const [user] = useAuthState(auth)
+  const { auth } = useContext(authContext)
+  const [user] = useAuthState(auth);
   return (
     <>
       <header>
@@ -15,12 +16,12 @@ const Navbar = () => {
             <Grid container justifyContent={'flex-end'}>
 
               {user ? 
-              <NavLink to={'/'}>
+              
                   <Button onClick={() => auth.signOut()} variant={"contained"} color={"secondary"}>Выйти</Button>
-              </NavLink>
+              
               
                 :
-                <NavLink to={LOGIN_ROUTE}>
+                <NavLink to={'/login'}>
                   <Button variant={"contained"} color={"secondary"}>Логин</Button>
                 </NavLink>
               }
